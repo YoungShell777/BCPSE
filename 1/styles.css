@@ -1,0 +1,135 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  /* Fondo: usa tu imagen en alta resolución, ajusta la ruta según corresponda */
+  background: url('fondo.png') no-repeat center center/cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Encabezado y logo */
+header {
+  background-color: #fff; /* Fondo blanco */
+  padding: 20px 0; /* Espaciado vertical */
+  width: 100%; /* Ocupar todo el ancho */
+  text-align: center;
+  box-shadow: 0 2px 10px rgb(31, 31, 31,0.1); /* Sombra ligera */
+}
+
+.logo {
+  max-width: 620px; /* Logo aumentado x2 (antes 160px) */
+}
+
+/* Contenedor que ocupa el espacio restante y centra su contenido */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Título de bienvenida (fuera del cuadro) */
+.welcome-title {
+  font-size: 24px; /* Aumentado x2 (antes 15px) */
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Cuadro de ingreso: más pequeño y compacto */
+/* Aumentar tamaño del cuadro de ingreso */
+.login-container {
+  background-color: #fff;
+  width: 580px; /* Antes era 250px, ahora más ancho */
+  padding: 40px 30px; /* Antes era 15px 10px, ahora más alto */
+  border-radius: 10px; /* Bordes más suaves */
+  box-shadow: 0 4px 15px rgb(28, 28, 28,0.2);
+  text-align: center;
+}
+/* Párrafo dentro del cuadro */
+.subtitle {
+  font-size: 16px;           /* Aumentado x2 (antes 13px) */
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Grupo de entrada minimalista */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;               /* Doblado (antes 18px) */
+  height: 28px;
+}
+
+#user-input {
+  width: 90%;
+  padding: 12px 12px 12px 50px; /* Padding ajustado para el ícono mayor */
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 22px;           /* Aumentado x2 */
+  outline: none;
+}
+
+#user-input::placeholder {
+  position: relative;
+  top: 3px; /* Ajusta este valor para bajar el texto */
+}
+
+/* Enlace de recuperación */
+.forgot-container {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.forgot-link {
+  font-size: 14px;           /* Doblado (antes 12px) */
+  text-decoration: none;
+  color: #000000;
+}
+
+/* Botones de acción */
+.buttons-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+/* Botón de Volver */
+.btn-back {
+  background-color: #fff; /* Fondo blanco */
+  color: #000; /* Texto negro */
+  border: 1px solid #000; /* Borde negro más grueso */
+  padding: 12px 54px; /* Más grande */
+  border-radius: 25px; /* Forma ovalada */
+  font-size: 18px; /* Texto más grande */
+  cursor: pointer;
+}
+
+/* Botón de Continuar */
+.btn-login {
+  background-color: #ffda24; /* Amarillo */
+  color: #000; /* Texto negro */
+  border: none; /* Sin borde */
+  padding: 14px 54px; /* Más grande */
+  border-radius: 25px; /* Forma ovalada */
+  font-size: 19px; /* Texto más grande */
+  cursor: pointer;
+}

